@@ -10,6 +10,7 @@ const initialState = {
 
 
 export const useHomeFetch = () => {
+    const [searchTerm, setSearchTerm] = useState('');
     const [state,setState] = useState(initialState);
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -31,9 +32,11 @@ const fetchMovies = async (page,searchTerm = "")=>{
     setLoading(false);
 }
 
+    //initial and search
     useEffect(()=>{
-        fetchMovies(1);
-    },[]) //runs only once bcz trigger is empty
+        setState(initialState);
+        fetchMovies(1,searchTerm);
+    },[searchTerm]) //runs only once bcz trigger is empty
 
-    return {state,loading,error};
+    return {state,loading,error,searchTerm, setSearchTerm};
 }
